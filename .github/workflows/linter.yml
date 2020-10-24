@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Yarn
+      - name: Install modules
         run: yarn
       - name: Lint
         run: yarn lint
