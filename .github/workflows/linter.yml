@@ -1,14 +1,15 @@
-name: Eslint
+name: Super-Linter
 on: push
 jobs:
-  eslint:
+  super-lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: hallee/eslint-action@1.0.3
-        # GITHUB_TOKEN in forked repositories is read-only
-        # https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
-        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }} 
-        with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
-          eslint-rc: .eslintrc.js
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        env:
+          DEFAULT_BRANCH: main
+          TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.js
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
